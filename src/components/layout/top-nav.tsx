@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { Menu, BellIcon, User } from 'lucide-react';
+import { Menu, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
 
