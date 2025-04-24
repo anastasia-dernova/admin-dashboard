@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import type { PageParams } from '@/types';
 import DashboardHeader from '@/components/dashboard/header';
 import DashboardLayout from '@/components/layout/dashboard-layout';
 import UserProfile from '@/components/users/user-profile';
@@ -25,7 +24,11 @@ async function getUserData(userId: string): Promise<UserDetail | null> {
   }
 }
 
-export async function generateMetadata({ params }: PageParams) {
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}) {
   const userData = await getUserData(params.id);
   
   if (!userData) {
@@ -40,7 +43,11 @@ export async function generateMetadata({ params }: PageParams) {
   };
 }
 
-export default async function UserDetailPage({ params }: PageParams) {
+export default async function UserDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const userData = await getUserData(params.id);
   
   if (!userData) {

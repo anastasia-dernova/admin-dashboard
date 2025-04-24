@@ -52,9 +52,3 @@ export interface SuspiciousActivityCriteria {
     averageMultiplier: number;
 }
 
-export interface PageParams {
-    params: {
-      id: string;
-    };
-  }
-  
