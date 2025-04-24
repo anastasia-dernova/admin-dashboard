@@ -99,13 +99,6 @@ import UserProfile from '@/components/users/user-profile';
 import UserActivityStats from '@/components/users/user-activity-stats';
 import UserLoginHistory from '@/components/users/user-login-history';
 import { UserDetail } from '@/types';
-import type { Metadata } from 'next';
-
-
-type GenerateMetadataProps = {
-  params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
 
 async function getUserData(userId: string): Promise<UserDetail | null> {
   try {
@@ -125,9 +118,7 @@ async function getUserData(userId: string): Promise<UserDetail | null> {
   }
 }
 
-export async function generateMetadata(
-  { params }: GenerateMetadataProps
-): Promise<Metadata> {
+export async function generateMetadata({ params }: any) {
   const userData = await getUserData(params.id);
   
   if (!userData) {
@@ -142,11 +133,8 @@ export async function generateMetadata(
   };
 }
 
-
-export default async function UserDetailPage(
-  props: { params: { id: string } }
-) {
-  const userId = props.params.id;
+export default async function UserDetailPage({ params }: any) {
+  const userId = params.id;
   const userData = await getUserData(userId);
   
   if (!userData) {
