@@ -100,7 +100,7 @@ import UserActivityStats from '@/components/users/user-activity-stats';
 import UserLoginHistory from '@/components/users/user-login-history';
 import { UserDetail } from '@/types';
 
-async function getUserData(userId: string): Promise<UserDetail | null> {
+async function getUserData(userId) {
   try {
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
     const response = await fetch(`${baseUrl}/api/users/${userId}`, {
@@ -118,7 +118,7 @@ async function getUserData(userId: string): Promise<UserDetail | null> {
   }
 }
 
-export async function generateMetadata({ params }: any) {
+export async function generateMetadata({ params }) {
   const userData = await getUserData(params.id);
   
   if (!userData) {
@@ -133,7 +133,8 @@ export async function generateMetadata({ params }: any) {
   };
 }
 
-export default async function UserDetailPage({ params }: any) {
+// Remove TypeScript type annotations completely
+export default async function UserDetailPage({ params }) {
   const userId = params.id;
   const userData = await getUserData(userId);
   
