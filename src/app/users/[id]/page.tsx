@@ -28,6 +28,7 @@ export async function generateMetadata({
   params,
 }: {
   params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const userData = await getUserData(params.id);
   
@@ -47,6 +48,7 @@ export default async function UserDetailPage({
   params,
 }: {
   params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const userData = await getUserData(params.id);
   
