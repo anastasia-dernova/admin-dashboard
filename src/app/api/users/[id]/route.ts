@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateMockLoginHistory } from '@/lib/mockData';
+import { User } from '@/types';
 
 export async function GET(
   request: NextRequest,
@@ -12,7 +13,7 @@ export async function GET(
     
     // special cases for our additional mock users
     if (['100', '101', '102'].includes(userId)) {
-      const mockUserMap: Record<string, any> = {
+      const mockUserMap: Record<string, User> = {
         '100': {
           id: 100,
           firstName: "John",

@@ -11,7 +11,7 @@ export default function UserNotFound() {
         </div>
         <h1 className="text-2xl font-bold tracking-tight mb-3">User Not Found</h1>
         <p className="text-muted-foreground mb-8">
-          The user you're looking for doesn't exist or has been removed from the system.
+          The user you are looking for does not exist or has been removed from the system.
         </p>
         <div className="flex justify-center gap-4">
           <Button asChild>

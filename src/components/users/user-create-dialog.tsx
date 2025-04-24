@@ -62,7 +62,7 @@ export default function UserCreateDialog({ open, onClose, onSubmit }: UserCreate
         <DialogHeader>
           <DialogTitle>Add New User</DialogTitle>
           <DialogDescription>
-            Create a new user account. Click save when you're done.
+            Create a new user account. Click save when you are done.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>

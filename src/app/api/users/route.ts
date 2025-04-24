@@ -1,3 +1,4 @@
+import { User } from '@/types';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -5,7 +6,7 @@ export async function GET() {
     const response = await fetch('https://dummyjson.com/users?limit=10');
     const data = await response.json();
     
-    const usersWithCustomData = data.users.map((user: any) => ({
+    const usersWithCustomData = data.users.map((user: User) => ({
       ...user,
       avatar: user.image || `/api/placeholder/40/40?text=${user.firstName.charAt(0)}${user.lastName.charAt(0)}`,
       lastActive: new Date(Date.now() - Math.floor(Math.random() * 10000000)).toISOString(),

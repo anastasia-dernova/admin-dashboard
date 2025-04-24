@@ -37,7 +37,7 @@ export default function LoginPage() {
 
       router.push('/dashboard');
       router.refresh();
-    } catch (error) {
+    } catch (_error) {
       setError('An error occurred during sign in');
       setIsLoading(false);
     }
@@ -47,7 +47,7 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       await signIn('github', { callbackUrl: '/dashboard' });
-    } catch (error) {
+    } catch (_error) {
       setError('An error occurred with GitHub sign in');
       setIsLoading(false);
     }

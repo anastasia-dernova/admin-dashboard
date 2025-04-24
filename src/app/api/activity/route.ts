@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { generateDailyLoginStats } from '@/lib/mockData';
+import { User } from '@/types';
 
 export async function GET() {
   try {
@@ -38,7 +39,7 @@ async function getRecentLogins(count: number) {
 
     const data = await response.json();
     
-    return data.users.slice(0, count).map((user: any, index: number) => ({
+    return data.users.slice(0, count).map((user: User, index: number) => ({
       id: user.id,
       name: `${user.firstName} ${user.lastName}`,
       email: user.email,
@@ -60,8 +61,8 @@ async function identifySuspiciousUsers() {
     
     // rules for suspicious user entries for every 5th user
     return data.users
-      .filter((_: any, index: number) => index % 5 === 0)
-      .map((user: any) => {
+      .filter((_: User, index: number) => index % 5 === 0)
+      .map((user: User) => {
         const highLoginDays = Math.floor(Math.random() * 5) + 3; // 3-7 days
         const averageLogins = Math.floor(Math.random() * 3) + 2; // 2-4 logins
         const spikeLogins = Math.floor(Math.random() * 10) + 15; // 15-24 logins
