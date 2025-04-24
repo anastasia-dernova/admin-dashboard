@@ -3,12 +3,13 @@ import { generateMockLoginHistory } from '@/lib/mockData';
 import { User } from '@/types';
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: NextRequest
 ) {
   try {
-    const userId = params.id;
-    
+    const url = new URL(request.url);
+    const userId = url.pathname.split('/').pop() as string;
+
+ 
     let userData;
     
     // special cases for our additional mock users
@@ -76,7 +77,7 @@ export async function GET(
       loginHistory
     });
   } catch (error) {
-    console.error(`Error fetching user ${params.id}:`, error);
+    console.error(`Error fetching user`, error);
     return NextResponse.json(
       { error: 'Failed to fetch user details' },
       { status: 500 }
@@ -86,10 +87,10 @@ export async function GET(
 //to update users
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
 ) {
   try {
-    const userId = params.id;
+    const url = new URL(request.url);
+    const userId = url.pathname.split('/').pop() as string;
     const body = await request.json();
     
     return NextResponse.json({
@@ -98,7 +99,7 @@ export async function PUT(
       lastActive: new Date().toISOString(),
     });
   } catch (error) {
-    console.error(`Error updating user ${params.id}:`, error);
+    console.error(`Error updating user`, error);
     return NextResponse.json(
       { error: 'Failed to update user' },
       { status: 500 }
@@ -108,16 +109,17 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
 ) {
   try {
+    const url = new URL(request.url);
+    const userId = url.pathname.split('/').pop() as string;
     return NextResponse.json({
-      id: Number(params.id),
+      id: Number(userId),
       deleted: true,
       message: 'User successfully deleted'
     });
   } catch (error) {
-    console.error(`Error deleting user ${params.id}:`, error);
+    console.error(`Error deleting user`, error);
     return NextResponse.json(
       { error: 'Failed to delete user' },
       { status: 500 }
