@@ -51,3 +51,10 @@ export interface SuspiciousActivityCriteria {
     highFrequencyThreshold: number;
     averageMultiplier: number;
 }
+
+export interface PageParams {
+    params: {
+      id: string;
+    };
+  }
+  
