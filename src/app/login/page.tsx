@@ -38,6 +38,7 @@ export default function LoginPage() {
       router.push('/dashboard');
       router.refresh();
     } catch (_error) {
+      console.error('Sign in error:', _error);
       setError('An error occurred during sign in');
       setIsLoading(false);
     }
@@ -48,6 +49,7 @@ export default function LoginPage() {
     try {
       await signIn('github', { callbackUrl: '/dashboard' });
     } catch (_error) {
+      console.error('GitHub sign in error:', _error);
       setError('An error occurred with GitHub sign in');
       setIsLoading(false);
     }
