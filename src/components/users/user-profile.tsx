@@ -71,25 +71,6 @@ const UserProfile: FC<UserProfileProps> = ({ user, suspiciousActivity, suspiciou
     setUpdatedUser(prev => ({ ...prev, role: value }));
   };
 
-  // const handleSaveProfile = async () => {
-  //   try {
-  //     const response = await fetch(`/api/users/${user.id}`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(updatedUser),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to update user');
-  //     }
-  //     setIsEditProfileOpen(false);
-  //     router.refresh();
-  //   } catch (error) {
-  //     console.error('Error updating user:', error);
-  //   }
-  // };
   const handleSaveProfile = async () => {
     try {
       const response = await fetch(`/api/users/${user.id}`, {
