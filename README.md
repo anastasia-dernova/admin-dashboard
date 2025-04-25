@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Admin Dashboard
 
-## Getting Started
+A comprehensive admin dashboard application for monitoring users, tracking suspicious activities, and visualizing data through charts and analytics.
 
-First, run the development server:
+## Overview
+
+This admin dashboard provides a centralized interface for administrators to manage users, monitor system activities, and gain insights through data visualization. Built with modern web technologies, it offers a responsive and intuitive user experience.
+
+## Tech Stack
+
+- **Frontend Framework**: Next.js with TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: Shadcn UI
+- **Authentication**: Custom admin login system
+
+## Features
+
+- **User Management**: View and manage all users in the system
+- **Security Monitoring**: Track and investigate suspicious activities
+- **Analytics**: Visualize key metrics through interactive charts and graphs
+- **Responsive Design**: Optimized for desktop and mobile devices
+
+## Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/anastasia-dernova/admin-dashboard.git
+
+# Navigate to the project directory
+cd admin-dashboard
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Admin Access
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To access the admin dashboard, use the following credentials:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Email**: admin@example.com
+- **Password**: adminPassword123
+- you can find this info in .env.examople file
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+After starting the development server, open your browser and navigate to:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+http://localhost:3000/
+```
