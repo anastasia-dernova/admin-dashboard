@@ -56,20 +56,11 @@
 
 // export { handler as GET, handler as POST };
 
-import NextAuth, { 
-  AuthOptions
-} from "next-auth";
+import NextAuth from "next-auth";
+import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-// Define custom types for type safety
-interface CustomUser {
-  id: string;
-  email: string;
-  name: string;
-  role?: string;
-}
-
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
@@ -85,17 +76,14 @@ export const authOptions: AuthOptions = {
         }
       },
       async authorize(credentials) {
-        // Validate credentials
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
 
-        // Compare credentials with environment variables
         if (
           credentials.email === process.env.ADMIN_EMAIL &&
           credentials.password === process.env.ADMIN_PASSWORD
         ) {
-          // Return a user object if authentication is successful
           return {
             id: "1",
             email: credentials.email,
@@ -103,7 +91,6 @@ export const authOptions: AuthOptions = {
           };
         }
 
-        // Return null if credentials are invalid
         return null;
       }
     })
@@ -116,7 +103,6 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      // Type-safe handling of user data during token creation
       if (user) {
         token.id = user.id;
         token.role = "admin";
@@ -124,10 +110,9 @@ export const authOptions: AuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      // Extend session with custom properties
       if (session.user) {
-        (session.user as CustomUser).id = token.id as string;
-        (session.user as CustomUser).role = token.role as string;
+        session.user.id = token.id as string;
+        session.user.role = token.role as string;
       }
       return session;
     },
