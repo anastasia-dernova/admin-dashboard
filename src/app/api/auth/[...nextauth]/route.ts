@@ -56,60 +56,67 @@
 
 // export { handler as GET, handler as POST };
 
-import NextAuth from "next-auth";
+import NextAuth, { 
+  AuthOptions
+} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+// Define custom types for type safety
+interface CustomUser {
+  id: string;
+  email: string;
+  name: string;
+  role?: string;
+}
+
+export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
-      name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: { 
+          label: "Email", 
+          type: "text",
+          placeholder: "your email"
+        },
+        password: { 
+          label: "Password", 
+          type: "password" 
+        }
       },
       async authorize(credentials) {
-        console.log('Authorization Attempt:', {
-          inputEmail: credentials?.email,
-          inputEmailType: typeof credentials?.email,
-          expectedEmail: process.env.ADMIN_EMAIL,
-          expectedEmailType: typeof process.env.ADMIN_EMAIL,
-          
-          inputPasswordProvided: !!credentials?.password,
-          expectedPasswordProvided: !!process.env.ADMIN_PASSWORD
-        });
+        // Validate credentials
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
 
-        const trimmedInputEmail = credentials?.email?.trim();
-        const trimmedInputPassword = credentials?.password?.trim();
-        const trimmedAdminEmail = process.env.ADMIN_EMAIL?.trim();
-        const trimmedAdminPassword = process.env.ADMIN_PASSWORD?.trim();
-
+        // Compare credentials with environment variables
         if (
-          trimmedInputEmail === trimmedAdminEmail &&
-          trimmedInputPassword === trimmedAdminPassword
+          credentials.email === process.env.ADMIN_EMAIL &&
+          credentials.password === process.env.ADMIN_PASSWORD
         ) {
-          console.log('Authentication Successful');
+          // Return a user object if authentication is successful
           return {
             id: "1",
-            email: trimmedAdminEmail,
-            name: "Admin User",
+            email: credentials.email,
+            name: "Admin User"
           };
         }
 
-        console.log('Authentication Failed');
+        // Return null if credentials are invalid
         return null;
-      },
-    }),
+      }
+    })
   ],
   session: {
     strategy: "jwt",
   },
   pages: {
     signIn: "/login",
-    error: "/login", // Redirect to login page on error
   },
   callbacks: {
     async jwt({ token, user }) {
+      // Type-safe handling of user data during token creation
       if (user) {
         token.id = user.id;
         token.role = "admin";
@@ -117,14 +124,16 @@ const handler = NextAuth({
       return token;
     },
     async session({ session, token }) {
+      // Extend session with custom properties
       if (session.user) {
-        session.user.id = token.id as string;
-        session.user.role = token.role as string;
+        (session.user as CustomUser).id = token.id as string;
+        (session.user as CustomUser).role = token.role as string;
       }
       return session;
     },
   },
-  debug: process.env.NODE_ENV === 'development', // Enable debug logs in development
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
