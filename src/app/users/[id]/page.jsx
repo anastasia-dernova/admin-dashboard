@@ -102,7 +102,9 @@ import { UserDetail } from '@/types';
 
 async function getUserData(userId) {
   try {
+    // const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+
     const response = await fetch(`${baseUrl}/api/users/${userId}`, {
       cache: 'no-store'
     });
